@@ -14,17 +14,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return \view('todo.index')->with('todos', Todo::all());
     }
 
     /**
@@ -35,19 +25,13 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['user_id'] = \auth()->user()->id;
+        Todo::create($data);
+        return \redirect('/');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Todo $todo)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -57,7 +41,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        return \view('todo.edit', ['todo' => $todo]);
     }
 
     /**
@@ -69,7 +53,8 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $todo->update($request->all());
+        return \redirect('/');
     }
 
     /**
@@ -80,6 +65,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return \redirect('/');
     }
 }

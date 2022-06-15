@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('work');
             $table->string('details');
             $table->unsignedBigInteger('user_id');
-            $table->boolean('complete');
+            $table->boolean('complete')->default(false);
             $table->timestamps();
         });
     }
