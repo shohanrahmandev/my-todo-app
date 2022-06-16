@@ -114,14 +114,32 @@
                         <td>
                             <a href="/edit/{{ $todo->id }}" type="submit" class="btn btn-success">Edit</a>
 
-                            <form action="/delete/{{ $todo->id }}" method="POST">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#delete{{ $todo->id }}">Delete</button>
+                            <!-- Delete Modal -->
+                            <div class="modal" id="delete{{ $todo->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="delte">Todo Data Delete</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure?
+                                            <div class="modal-footer">
 
-                                @csrf
+                                                <form action="/delete/{{ $todo->id }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-primary">yes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                            +
                         </td>
                     </tr>
 
