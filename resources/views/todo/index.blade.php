@@ -43,7 +43,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/store">
+                        <form action="/store" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" name="name" class="form-control" id="name">
@@ -81,6 +82,7 @@
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
+                        <th scope="col">user</th>
                         <th scope="col">Work</th>
                         <th scope="col">Details</th>
                         <th scope="col">Action</th>
@@ -101,6 +103,9 @@
                             {{ $todo->date }}
                         </td>
                         <td>
+                            {{ $todo->user->name }}
+                        </td>
+                        <td>
                             {{ $todo->work }}
                         </td>
                         <td>
@@ -109,7 +114,14 @@
                         <td>
                             <a href="/edit/{{ $todo->id }}" type="submit" class="btn btn-success">Edit</a>
 
-                            <a href="/delete/{{ $todo->id }}" type="submit" class="btn btn-danger">Delete</a>
+                            <form action="/delete/{{ $todo->id }}" method="POST">
+
+                                @csrf
+
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            +
                         </td>
                     </tr>
 

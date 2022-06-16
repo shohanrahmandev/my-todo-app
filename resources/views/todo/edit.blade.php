@@ -23,7 +23,9 @@
 
 
             <div class="shadow p-3 mb-5 bg-body rounded" style="width:500px">
-                <form action="/update/{{ $todo->id }}">
+                <form action="/update/{{ $todo->id }}" method="post">
+                    @csrf
+                    @method('PUT')
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" id="name" value="{{ $todo->name }}">

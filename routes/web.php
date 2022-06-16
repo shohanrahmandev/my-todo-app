@@ -14,15 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [TodoController::class, 'index'])->middleware('auth');
+Route::prefix('/')->middleware('auth')->group(function () {
 
-Route::get('/store', [TodoController::class, 'store']);
+    Route::get('/', [TodoController::class, 'index']);
 
-Route::get('/edit/{todo}', [TodoController::class, 'edit']);
+    Route::post('/store', [TodoController::class, 'store']);
 
-Route::get('/update/{todo}', [TodoController::class, 'update']);
+    Route::get('/edit/{todo}', [TodoController::class, 'edit']);
 
-Route::get('/delete/{todo}', [TodoController::class, 'destroy']);
+    Route::put('/update/{todo}', [TodoController::class, 'update']);
+
+    Route::delete('/delete/{todo}', [TodoController::class, 'destroy']);
+});
+
 
 Route::middleware([
     'auth:sanctum',
